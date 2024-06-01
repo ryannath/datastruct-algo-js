@@ -50,7 +50,30 @@ export const productArrExceptSelf = (nums) => {
   }
   return results;
 }
+
+/**
+ *
+ * @param {number[]} nums
+ * @returns {number[]}
+ */
+export const productArrExceptSelfFollowUp = (nums) => {
+  const results = Array(nums.length);
+  results[0] = 1;
+  for (let i = 1; i < nums.length; i++) {
+    results[i] = results[i-1] * nums[i-1];
+  }
+  let temp = 1;
+  for (let i = nums.length-2; i >= 0; i--) {
+    temp *= nums[i+1];
+    results[i] = results[i] * temp;
+  }
+  return results;
+}
+
 console.log(productArrExceptSelf([1, 2, 3, 4]));
-// [1, 2, 3, 4,]
-// [1,  1,  2,  6, 24]
-// [24, 24, 12,  4, 1]
+//index[0, 1, 2, 3]
+//     [1, 2, 3, 4,]
+
+//     [1,  1,  2,  6]
+//     [24, 12,  4, 1]
+//     [24, 12, 8, 6]
